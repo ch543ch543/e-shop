@@ -1,0 +1,50 @@
+@import '~antd/lib/menu/style/index.less';
+
+.ant-menu {
+  box-shadow: none;
+  &-vertical {
+    display: flex;
+  }
+  &-horizontal {
+    border-bottom: none;
+    &:not(.@{menu-prefix-cls}-dark) {
+      &::after {
+        border-bottom: none;
+      }
+    }
+  }
+  &-item {
+    a {
+      color: #7e817e;
+    }
+    &-group-title {
+      text-align: left;
+      padding: 0px 20px 10px 20px;
+      color: @menu-item-color;
+    }
+  }
+  
+}
+
+.ant-menu-submenu-popup {
+  width: 100%;
+  .ant-menu-sub {
+    padding: 100px 150px;
+  }
+}
+
+.ant-menu-item-group-list .ant-menu-item, .ant-menu-item-group-list .ant-menu-submenu-title {
+  text-align: left;
+  padding: 10px 20px;
+  margin: 0;
+  line-height: 1em;
+  height: auto;
+}
+
+.ant-menu-title-content {
+  line-height: 1em;
+}
+
+.ant-menu-vertical .ant-menu-item:not(:last-child) {
+  margin-bottom: 0;
+}

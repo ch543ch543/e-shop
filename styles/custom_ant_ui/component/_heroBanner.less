@@ -1,0 +1,36 @@
+@import '../_rwdMixin.less';
+
+.hero-banner-container {
+  border-radius: 15px;
+  position: relative;
+  line-height: 0.9; 
+  width: 100%;
+  .hero-banner-image{
+    width: 100%;
+    .rwd(pad;{
+      object-fit: cover;
+      object-position: 0 0;
+      height: 500px;
+    });
+  }
+  button {
+    width: fit-content;
+    padding: 19px 22px;
+    height: auto;
+    position: absolute;
+    right: 5%;
+    bottom: 20%;
+    .rwd(pad;{
+      left: 50%;
+      bottom: 10%;
+      transform: translate(-50%, -50%);
+    });
+  }
+  .logo {
+    color: gray;
+    font-size: 18px;
+    a {
+      display: block;
+    }
+  }
+}
