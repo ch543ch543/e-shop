@@ -1,0 +1,57 @@
+import React from 'react';
+
+import { client } from '../../lib/client';
+import { Product, ProductDetail } from '../../components';
+
+const ProductDetails = ({ product, products }) => {
+
+  return (
+    <div>
+      {/* <ProductDetail product={product}/> */}
+      <div className="maylike-products-wrapper">
+          <h2>You may also like</h2>
+          <div className="marquee">
+            <div className="maylike-products-container track">
+              {products.map((item) => (
+                <Product key={item._id} product={item} />
+              ))}
+            </div>
+          </div>
+      </div>
+    </div>
+  )
+}
+
+export const getStaticPaths = async () => { //Next.js will statically generate
+  const query = `*[_type == "product"]`;
+
+  const products = await client.fetch(query);
+  const paths = products.map((product) => ({
+    params: { 
+      slug: product.slug.current
+    }
+  }));
+
+  return {
+    paths,
+    fallback: 'blocking'
+  }
+}
+
+//If you are creating a dynamic page eg: product/[slug].tsx then even if you don't want to create any page on build time you need to create a getStaticPaths method to set the fallback property and let NextJS know what to do when the page you are trying to get doesn't exist.
+
+export const getStaticProps = async ({ params }) => {
+  const query = `*[_type == "product" && slug.current == '${params.slug}'][0]`;
+  const productsQuery = '*[_type == "product"]'
+  
+  const product = await client.fetch(query);
+  const products = await client.fetch(productsQuery);
+
+  console.log(product);
+
+  return {
+    props: { products, product }
+  }
+}
+
+export default ProductDetails

@@ -1,0 +1,29 @@
+@import '~antd/lib/button/style/index.less';
+
+.ant-btn-primary {
+  color: @primary-color;
+  border-color: @primary-color-hover;
+  background: @primary-color-hover;
+  font-size: 12px;
+  line-height: 1em;
+  &:hover {
+    color: @primary-color-hover;
+    background: @primary-color;
+    border-color: @primary-color;
+  }
+}
+.ant-btn-secondary {
+  color: @primary-color-hover;
+  background: @primary-color;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 1em;
+  border-color: @primary-color;
+  padding: 18px 22px;
+  height: auto;
+  &:hover {
+    color: @primary-color;
+    background: @primary-color-hover;
+    border-color: @primary-color-hover;
+  }
+}
