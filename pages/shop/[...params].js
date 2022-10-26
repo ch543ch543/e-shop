@@ -9,13 +9,13 @@ const ProductTypePage = ({ allProducts, allTypeProducts, allCatProducts, product
       { 
         params[0] && !params[1] &&
         <div className='products-container'>
-          {allCatProducts?.map((product) => <Product product={product} />)}
+          {allCatProducts?.map((product) => <Product key={product._id} product={product} />)}
         </div>
       }
       { 
         params[0] && params[1] && !params[2] &&
         <div className='products-container'>
-          {allTypeProducts?.map((product) => <Product product={product} />)}
+          {allTypeProducts?.map((product) => <Product key={product._id} product={product} />)}
         </div>
       }
       { 
