@@ -11,7 +11,7 @@ import "../node_modules/font-awesome/css/font-awesome.min.css";
 
 const Navbar = () => {
   const { showCart, setShowCart, totalQuantites } = useStateContext();
-  const [navData, setNavData] = useState([{ children: [] }]);
+  const [navData, setNavData] = useState([{ children: [{ children: [] }] }]);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [openDrawerKeys, setOpenDrawerKeys] = useState(["sub1"]);
   const [windowSize, setWindowSize] = useState({
@@ -26,14 +26,29 @@ const Navbar = () => {
       innerHeight: innerHeight,
     });
   };
+  const getItem = (label, key, children, type) => {
+    return {
+      key,
+      children,
+      label,
+      type,
+    };
+  };
+  const labelToLink = (slug, catSlug) => {
+    return (
+      <Link href={"/shop/" + slug + "/" + catSlug}>
+        <a>{slug}</a>
+      </Link>
+    );
+  };
 
   const getnavData = async () => {
-    console.log("getnavData");
     const catQuery = `*[_type == "productCat"]`;
     const typeQuery = `*[_type == "productType"]`;
     const categories = await client.fetch(catQuery);
     const types = await client.fetch(typeQuery);
     const data = [{ key: "shop", label: "SHOP", children: [] }];
+
     categories.forEach((item) => {
       let level2Children = types.filter(
         (type) => type.category == item.slug.current
@@ -43,7 +58,10 @@ const Navbar = () => {
           item.name,
           item.slug.current,
           level2Children.map((level2Item) => {
-            return getItem(level2Item.name, level2Item.slug.current);
+            return getItem(
+              labelToLink(level2Item.slug.current, item.slug.current),
+              level2Item.slug.current
+            );
           })
         )
       );
@@ -51,16 +69,6 @@ const Navbar = () => {
     // console.log("navData", data);
     return setNavData(data);
   };
-
-  //drawer functions
-  function getItem(label, key, children, type) {
-    return {
-      key,
-      children,
-      label,
-      type,
-    };
-  }
 
   // submenu keys of first level
   const rootSubmenuKeys = ["sub1", "sub2", "sub4"];
