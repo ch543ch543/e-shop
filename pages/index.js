@@ -9,7 +9,7 @@ import { Button } from 'antd';
       <HeroBanner heroBanner={ bannerData.length && bannerData[0]} />
       <div className='products-heading'>
       <div className='products-container'>
-        {products?.map((product) => <Product product={product} />)}
+        {products?.map((product) => <Product key={product._id} product={product} />)}
       </div>
      </div>
     </div>

@@ -95,7 +95,7 @@ const Navbar = () => {
           <Menu.SubMenu key="SubMenu" title="shop">
             {navData[0].children.map((category) => {
               return (
-                <Menu.ItemGroup title={category.label}>
+                <Menu.ItemGroup key={category.label} title={category.label}>
                   <Menu.Item
                     key={`all-${category.label}`}
                     eventKey={`all-${category.label}`}
