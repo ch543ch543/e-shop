@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useStateContext } from "../context/StateContext";
-import Quantity from "./Quantiy";
+import Quantity from "./Quantity";
 import { Button } from "antd";
 import { urlFor } from "../lib/client";
 

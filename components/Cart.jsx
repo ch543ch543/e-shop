@@ -4,21 +4,15 @@ import { AiOutlineLeft, AiOutlineShopping } from "react-icons/ai";
 import { TiDeleteOutline } from "react-icons/ti";
 import toast from "react-hot-toast";
 import { useStateContext } from "../context/StateContext";
-import Quantity from "./Quantiy";
+import Quantity from "./Quantity";
 import { Button } from "antd";
 import { urlFor } from "../lib/client";
 import getStripe from "../lib/getStripe";
 
 const Cart = () => {
   const cartRef = useRef();
-  const {
-    totalPrice,
-    totalQuantities,
-    cartItems,
-    setShowCart,
-    toggleCartItemQuanitity,
-    onRemove,
-  } = useStateContext();
+  const { totalPrice, totalQuantities, cartItems, setShowCart, onRemove } =
+    useStateContext();
 
   const handleCheckout = async () => {
     console.log(cartItems);
@@ -79,7 +73,11 @@ const Cart = () => {
                     <h4>${item.price}</h4>
                   </div>
                   <div className="flex bottom">
-                    <Quantity />
+                    <Quantity
+                      position="cart"
+                      itemID={item._id}
+                      itemQuantity={item.quantity}
+                    />
                     <button
                       type="button"
                       className="remove-item"
