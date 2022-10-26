@@ -28,6 +28,7 @@ const Navbar = () => {
   };
 
   const getnavData = async () => {
+    console.log("getnavData");
     const catQuery = `*[_type == "productCat"]`;
     const typeQuery = `*[_type == "productType"]`;
     const categories = await client.fetch(catQuery);
