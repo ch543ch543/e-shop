@@ -2,15 +2,26 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { client } from "../lib/client";
 import { AiOutlineShopping } from "react-icons/ai";
-
+import { useRouter } from "next/router";
 import { Cart } from "./";
 import { useStateContext } from "../context/StateContext";
 
 import { Menu, Drawer, Button, Icon } from "antd";
 import "../node_modules/font-awesome/css/font-awesome.min.css";
 
+import Cookies from "js-cookie";
+
 const Navbar = () => {
-  const { showCart, setShowCart, totalQuantites } = useStateContext();
+  const router = useRouter();
+  const {
+    showCart,
+    setShowCart,
+    totalQuantites,
+    userInfo,
+    setUserInfo,
+    userName,
+    setUserName,
+  } = useStateContext();
   const [navData, setNavData] = useState([{ children: [{ children: [] }] }]);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [openDrawerKeys, setOpenDrawerKeys] = useState(["sub1"]);
@@ -18,6 +29,7 @@ const Navbar = () => {
     innerWidth: 1024,
     innerHeight: 1024,
   });
+
   const handleWindowResize = () => {
     const { innerWidth, innerHeight } = window;
     // console.log("innerWidth", innerWidth);
@@ -40,6 +52,11 @@ const Navbar = () => {
         <a>{slug}</a>
       </Link>
     );
+  };
+  const handleLogOut = () => {
+    Cookies.remove("userInfo");
+    setUserInfo(null);
+    setUserName(null);
   };
 
   const getnavData = async () => {
@@ -92,11 +109,17 @@ const Navbar = () => {
     getnavData();
     handleWindowResize();
     window.addEventListener("resize", handleWindowResize);
+    setUserName(userInfo ? userInfo.name : null);
     return () => {
       window.removeEventListener("resize", handleWindowResize);
     };
   }, []);
-
+  // useEffect(() => {
+  //   if (!userInfo) {
+  //     router.push("/");
+  //     setUserName(null);
+  //   }
+  // }, [router, userInfo]);
   return (
     <div className="navbar-container">
       {windowSize.innerWidth > 1024 && (
@@ -163,18 +186,31 @@ const Navbar = () => {
       )}
 
       <Link href="/">
-        <a className="logo">LOU.YETU</a>
+        <a className="logo">CHUN.VITA</a>
       </Link>
 
-      <button
-        type="button"
-        className="cart-icon"
-        onClick={() => setShowCart(true)}
-      >
-        <AiOutlineShopping />
-        <span className="cart-item-qty">{totalQuantites}</span>
-      </button>
-
+      <div className="navRight">
+        {userName ? (
+          <>
+            <Button type="primary">{userName}</Button>
+            <Button type="primary" onClick={() => handleLogOut()}>
+              Logout
+            </Button>
+          </>
+        ) : (
+          <Link href="/login" passHref>
+            <a className="loginBtn">Login</a>
+          </Link>
+        )}
+        <button
+          type="button"
+          className="cart-icon"
+          onClick={() => setShowCart(true)}
+        >
+          <AiOutlineShopping />
+          <span className="cart-item-qty">{totalQuantites}</span>
+        </button>
+      </div>
       {showCart && <Cart />}
     </div>
   );

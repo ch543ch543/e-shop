@@ -9,3 +9,26 @@
 @primary-color-outline: fade(@primary-color, @outline-fade);
 @menu-item-color: #626662;
 @menu-highlight-color: #626662;
+
+.main-light-color {
+  color: @secondary-color;
+}
+
+a.main-light-color {
+  color: @secondary-color;
+    &:hover {
+      color: @primary-color;
+  }
+}
+
+.main-dark-color {
+  color: @primary-color;
+}
+
+a.main-dark-color {
+  color: @primary-color;
+  transition: 1s;
+    &:hover {
+      text-decoration: underline;
+  }
+}

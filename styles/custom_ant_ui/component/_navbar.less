@@ -5,6 +5,7 @@
   padding: 20px 80px;
   margin: 0;
   position: relative;
+  height: 10vh;
 }
 .mobile-menu-btn {
   border: none;
@@ -44,5 +45,28 @@
   background-color: transparent;
   &:hover{
     transform: scale(1.1,1.1);
+  }
+}
+.navRight {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  width: fit-content;
+  .cart-icon {
+    margin-left: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .cart-item-qty {
+    display: block;
+    position: absolute;
+    right: -5px;
+    top: -4px
+  }
+  .loginBtn {
+    display: block;
   }
 }

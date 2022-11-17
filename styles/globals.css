@@ -19,6 +19,8 @@ a {
 .main-container {
   margin: auto;
   width: 100%;
+  height: fit-content;
+  min-height: 75vh;
 }
 
 .max-qty {
