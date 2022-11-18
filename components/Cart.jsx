@@ -1,39 +1,43 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import Link from "next/link";
 import { AiOutlineLeft, AiOutlineShopping } from "react-icons/ai";
 import { TiDeleteOutline } from "react-icons/ti";
-import toast from "react-hot-toast";
 import { useStateContext } from "../context/StateContext";
 import Quantity from "./Quantity";
 import { Button } from "antd";
 import { urlFor } from "../lib/client";
-import getStripe from "../lib/getStripe";
+
+import Cookies from "js-cookie";
+import { useRouter } from "next/router";
 
 const Cart = () => {
   const cartRef = useRef();
-  const { totalPrice, totalQuantities, cartItems, setShowCart, onRemove } =
-    useStateContext();
+  const router = useRouter();
+  const {
+    totalPrice,
+    totalQuantities,
+    userInfo,
+    cartItems,
+    setCartItems,
+    setShowCart,
+    onRemove,
+  } = useStateContext();
 
   const handleCheckout = async () => {
-    console.log(cartItems);
-    const stripe = await getStripe();
-
-    const response = await fetch("/api/stripe", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(cartItems),
-    });
-
-    if (response.statusCode === 500) return;
-
-    const data = await response.json();
-
-    toast.loading("Redirecting...");
-
-    stripe.redirectToCheckout({ sessionId: data.id });
+    setShowCart(false);
+    if (!userInfo) {
+      return router.push("/login");
+    }
+    return router.push("/shipping");
   };
+
+  useEffect(() => {
+    setCartItems(
+      Cookies.get("cartItems")
+        ? JSON.parse(Cookies.get("cartItems"))
+        : cartItems
+    );
+  }, []);
 
   return (
     <div className="cart-wrapper" ref={cartRef}>
@@ -46,7 +50,6 @@ const Cart = () => {
           <AiOutlineLeft />
           <span className="heading">Your Cart</span>
         </button>
-
         {cartItems.length < 1 && (
           <div className="empty-cart">
             <AiOutlineShopping size={150} />

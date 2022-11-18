@@ -11,7 +11,7 @@ const RegisterForm = () => {
 
   useEffect(() => {
     if (userInfo) {
-      router.push("/");
+      router;
     }
   }, [router, userInfo]);
   const validateMessages = {
@@ -21,6 +21,7 @@ const RegisterForm = () => {
     },
   };
   const submitHandler = async ({ name, email, password }) => {
+    e.preventdefault();
     try {
       const { data } = await axios.post("/api/register", {
         name,
@@ -37,8 +38,8 @@ const RegisterForm = () => {
   return (
     <Form
       name="basic"
-      labelCol={{ span: 8 }}
-      wrapperCol={{ span: 16 }}
+      labelCol={{ span: 6 }}
+      wrapperCol={{ span: 12 }}
       initialValues={{ remember: true }}
       onFinish={submitHandler}
       // onFinishFailed={onFinishFailed}
@@ -104,8 +105,11 @@ const RegisterForm = () => {
       >
         <Input.Password />
       </Form.Item>
-
-      <Form.Item>
+      <Form.Item
+        wrapperCol={{
+          offset: 6,
+        }}
+      >
         <Button type="primary" htmlType="submit">
           Register
         </Button>

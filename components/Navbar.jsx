@@ -17,6 +17,7 @@ const Navbar = () => {
     showCart,
     setShowCart,
     totalQuantites,
+    setTotalQuantities,
     userInfo,
     setUserInfo,
     userName,
@@ -57,6 +58,7 @@ const Navbar = () => {
     Cookies.remove("userInfo");
     setUserInfo(null);
     setUserName(null);
+    router.push("/");
   };
 
   const getnavData = async () => {
@@ -110,6 +112,11 @@ const Navbar = () => {
     handleWindowResize();
     window.addEventListener("resize", handleWindowResize);
     setUserName(userInfo ? userInfo.name : null);
+    setTotalQuantities(
+      Cookies.get("cartItems")
+        ? JSON.parse(Cookies.get("cartItems")).length
+        : totalQuantites
+    );
     return () => {
       window.removeEventListener("resize", handleWindowResize);
     };
@@ -192,8 +199,8 @@ const Navbar = () => {
       <div className="navRight">
         {userName ? (
           <>
-            <Button type="primary">{userName}</Button>
-            <Button type="primary" onClick={() => handleLogOut()}>
+            <Button type="text">{userName}</Button>
+            <Button type="text" onClick={() => handleLogOut()}>
               Logout
             </Button>
           </>

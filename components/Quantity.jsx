@@ -2,7 +2,7 @@ import React from "react";
 import { useStateContext } from "../context/StateContext";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 
-const Quantiy = ({ position, itemID, itemQuantity }) => {
+const Quantity = ({ position, itemID, itemQuantity }) => {
   const { decQty, incQty, qty, toggleCartItemQuanitity } = useStateContext();
   return (
     <div className="quantity">
@@ -33,4 +33,4 @@ const Quantiy = ({ position, itemID, itemQuantity }) => {
   );
 };
 
-export default Quantiy;
+export default Quantity;
