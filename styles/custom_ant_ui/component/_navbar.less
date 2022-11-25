@@ -2,17 +2,28 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 80px;
+  padding: 0 16px;
   margin: 0;
   position: relative;
-  height: 10vh;
+  height: 75px;
+  clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+  transform: translateY(4em);
+  .navRight {
+    .rwd(pad;{
+      display: none;
+    });
+  }
 }
 .mobile-menu-btn {
   border: none;
   background-color: transparent;
+  display: none;
   img {
     width: 40px;
   }
+  .rwd(pad;{
+    display: block;
+  });
 }
 .mobile-menu-drawer {
   .ant-menu.ant-menu-root.ant-menu-inline.ant-menu-light {
@@ -22,49 +33,40 @@
   .ant-menu.ant-menu-sub.ant-menu-inline {
     background-color: transparent;
   }
-}
-.cart-item-qty{
-  position: absolute;
-  right: -8px;
-  font-size: 12px;
-  color: @primary-color;
-  background-color: @primary-color-hover;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  text-align: center;
-  font-weight: 600;
-}
-.cart-icon{
-  font-size: 25px;
-  color: gray;
-  cursor: pointer;
-  position: relative;
-  transition: transform .4s ease;
-  border: none;
-  background-color: transparent;
-  &:hover{
-    transform: scale(1.1,1.1);
+  .navRight {
+    justify-content: left;
+    padding-left: 24px;
   }
+}
+
+.navLeft {
+  width: 240px;
+  .rwd(pad;{
+    display: none;
+  });
+}
+.logo {
+  font-family: 'Yeseva One', cursive;
 }
 .navRight {
   position: relative;
   display: flex;
-  justify-content: space-between;
+  justify-content: right;
   align-items: center;
   height: 40px;
-  width: fit-content;
+  width: 240px;
+  .rwd(pad;{
+    width: fit-content;
+  });
+  a.cart-icon, a.loginBtn {
+    padding-right: 20px;
+  }
+  
   .cart-icon {
     margin-left: 15px;
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  .cart-item-qty {
-    display: block;
-    position: absolute;
-    right: -5px;
-    top: -4px
   }
   .loginBtn {
     display: block;

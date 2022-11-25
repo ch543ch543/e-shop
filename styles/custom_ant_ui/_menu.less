@@ -2,6 +2,7 @@
 
 .ant-menu {
   box-shadow: none;
+  background-color: transparent;
   &-vertical {
     display: flex;
   }
@@ -29,9 +30,13 @@
 .ant-menu-submenu-popup {
   width: 100%;
   .ant-menu-sub {
-    padding: 100px 150px;
+    padding: 96px 128px;
+    height: 400px;
+    background-color: @secondary-color;
+    margin: 0 16px;
   }
 }
+
 
 .ant-menu-item-group-list .ant-menu-item, .ant-menu-item-group-list .ant-menu-submenu-title {
   text-align: left;

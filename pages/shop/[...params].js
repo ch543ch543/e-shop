@@ -1,45 +1,54 @@
-import React from 'react';
+import React, { useEffect } from "react";
+import { client } from "../../lib/client";
+import { navAnimation } from "../../lib/animation";
+import { ProductCard, ProductDetail } from "../../components";
 
-import { client } from '../../lib/client';
-import { Product, ProductDetail } from '../../components';
-
-const ProductTypePage = ({ allProducts, allTypeProducts, allCatProducts, product, params }) => {
+const ProductTypePage = ({
+  allProducts,
+  allTypeProducts,
+  allCatProducts,
+  product,
+  params,
+}) => {
+  useEffect(() => {
+    navAnimation();
+  }, []);
   return (
     <>
-      { 
-        params[0] && !params[1] &&
-        <div className='products-container'>
-          {allCatProducts?.map((product) => <Product key={product._id} product={product} />)}
+      {params[0] && !params[1] && (
+        <div className="products-container">
+          {allCatProducts?.map((product) => (
+            <ProductCard key={product._id} product={product} />
+          ))}
         </div>
-      }
-      { 
-        params[0] && params[1] && !params[2] &&
-        <div className='products-container'>
-          {allTypeProducts?.map((product) => <Product key={product._id} product={product} />)}
+      )}
+      {params[0] && params[1] && !params[2] && (
+        <div className="products-container">
+          {allTypeProducts?.map((product) => (
+            <ProductCard key={product._id} product={product} />
+          ))}
         </div>
-      }
-      { 
-        params[0] && params[1] && params[2] &&
+      )}
+      {params[0] && params[1] && params[2] && (
         <div>
-          <ProductDetail product={product}/>
+          <ProductDetail product={product} />
           <div className="maylike-products-wrapper">
-              <h2>You may also like</h2>
-              <div className="marquee">
-                <div className="maylike-products-container track">
-                  {allProducts.map((item) => (
-                    <Product key={item._id} product={item} />
-                  ))}
-                </div>
+            <h2>Other Stories</h2>
+            <div className="marquee">
+              <div className="maylike-products-container track">
+                {allProducts.map((item, key) => (
+                  <ProductCard className={key} key={item._id} product={item} />
+                ))}
               </div>
+            </div>
           </div>
         </div>
-      }
+      )}
     </>
-  )
-}
+  );
+};
 
 export const getServerSideProps = async ({ params: { params } }) => {
-  
   const catQuery = `*[_type == "productCat" && slug.current == '${params[0]}'][0]`;
   const typeQuery = `*[_type == "productType" && slug.current == '${params[1]}'][0]`;
   const productQuery = `*[_type == "product" && slug.current == '${params[2]}'][0]`;
@@ -54,8 +63,16 @@ export const getServerSideProps = async ({ params: { params } }) => {
   const allCatProducts = await client.fetch(filterCatQuery);
   const allTypeProducts = await client.fetch(filterTypeQuery);
   return {
-    props: { category, type, product, allProducts, allCatProducts, allTypeProducts, params }
-  }
-}
+    props: {
+      category,
+      type,
+      product,
+      allProducts,
+      allCatProducts,
+      allTypeProducts,
+      params,
+    },
+  };
+};
 
-export default ProductTypePage
+export default ProductTypePage;

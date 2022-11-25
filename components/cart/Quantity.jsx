@@ -1,5 +1,5 @@
 import React from "react";
-import { useStateContext } from "../context/StateContext";
+import { useStateContext } from "../../context/StateContext";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 
 const Quantity = ({ position, itemID, itemQuantity }) => {

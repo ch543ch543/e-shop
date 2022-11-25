@@ -2,10 +2,10 @@ import React, { useRef, useEffect } from "react";
 import Link from "next/link";
 import { AiOutlineLeft, AiOutlineShopping } from "react-icons/ai";
 import { TiDeleteOutline } from "react-icons/ti";
-import { useStateContext } from "../context/StateContext";
+import { useStateContext } from "../../context/StateContext";
 import Quantity from "./Quantity";
 import { Button } from "antd";
-import { urlFor } from "../lib/client";
+import { urlFor } from "../../lib/client";
 
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";

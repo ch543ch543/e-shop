@@ -2,7 +2,7 @@ import React from "react";
 import { Form, Button } from "antd";
 import { useStateContext } from "../../context/StateContext";
 import { urlFor } from "../../lib/client";
-import Quantity from "../Quantity";
+import Quantity from "../cart/Quantity";
 import { TiDeleteOutline } from "react-icons/ti";
 import getStripe from "../../lib/getStripe";
 import toast from "react-hot-toast";

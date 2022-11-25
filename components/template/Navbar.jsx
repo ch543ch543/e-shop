@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { client } from "../lib/client";
+import { client } from "../../lib/client";
 import { AiOutlineShopping } from "react-icons/ai";
 import { useRouter } from "next/router";
-import { Cart } from "./";
-import { useStateContext } from "../context/StateContext";
+import { Cart } from "../";
+import { useStateContext } from "../../context/StateContext";
 
 import { Menu, Drawer, Button, Icon } from "antd";
-import "../node_modules/font-awesome/css/font-awesome.min.css";
+import "../../node_modules/font-awesome/css/font-awesome.min.css";
 
 import Cookies from "js-cookie";
 
@@ -26,18 +26,40 @@ const Navbar = () => {
   const [navData, setNavData] = useState([{ children: [{ children: [] }] }]);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [openDrawerKeys, setOpenDrawerKeys] = useState(["sub1"]);
-  const [windowSize, setWindowSize] = useState({
-    innerWidth: 1024,
-    innerHeight: 1024,
-  });
 
-  const handleWindowResize = () => {
-    const { innerWidth, innerHeight } = window;
-    // console.log("innerWidth", innerWidth);
-    return setWindowSize({
-      innerWidth: innerWidth,
-      innerHeight: innerHeight,
-    });
+  const userInfoBlock = () => {
+    return (
+      <div className="navRight">
+        {userName ? (
+          <>
+            <Button type="text">
+              <p>{userName}</p>
+            </Button>
+            <Button type="text" onClick={() => handleLogOut()}>
+              <span>LOGOUT</span>
+            </Button>
+            <a type="button" onClick={() => setShowCart(true)}>
+              <span>CART{`(`}</span>
+              <span>{totalQuantites}</span>
+              <span>{`)`}</span>
+            </a>
+          </>
+        ) : (
+          <>
+            <Link href="/login" passHref>
+              <a className="loginBtn">
+                <span>LOGIN</span>
+              </a>
+            </Link>
+            <a type="button" onClick={() => setShowCart(true)}>
+              <span>CART{`(`}</span>
+              <span>{totalQuantites}</span>
+              <span>{`)`}</span>
+            </a>
+          </>
+        )}
+      </div>
+    );
   };
   const getItem = (label, key, children, type) => {
     return {
@@ -109,17 +131,12 @@ const Navbar = () => {
   };
   useEffect(() => {
     getnavData();
-    handleWindowResize();
-    window.addEventListener("resize", handleWindowResize);
     setUserName(userInfo ? userInfo.name : null);
     setTotalQuantities(
       Cookies.get("cartItems")
         ? JSON.parse(Cookies.get("cartItems")).length
         : totalQuantites
     );
-    return () => {
-      window.removeEventListener("resize", handleWindowResize);
-    };
   }, []);
   // useEffect(() => {
   //   if (!userInfo) {
@@ -128,9 +145,9 @@ const Navbar = () => {
   //   }
   // }, [router, userInfo]);
   return (
-    <div className="navbar-container">
-      {windowSize.innerWidth > 1024 && (
-        <Menu mode="horizontal">
+    <>
+      <div className="navbar-container">
+        <Menu mode="horizontal" className="navLeft">
           <Menu.SubMenu key="SubMenu" title="shop">
             {navData[0].children.map((category) => {
               return (
@@ -161,65 +178,42 @@ const Navbar = () => {
             })}
           </Menu.SubMenu>
         </Menu>
-      )}
-      {windowSize.innerWidth <= 1024 && (
-        <>
-          <button className="mobile-menu-btn" type="button">
-            <img
-              src={require("../public/burger-bar.png").default.src}
-              onClick={showDrawer}
-            ></img>
-          </button>
-          <Drawer
-            // title="Basic Drawer"
-            className="mobile-menu-drawer"
-            placement="left"
-            closable={false}
-            onClose={onCloseDrawer}
-            open={drawerOpen}
-            key="left"
-          >
-            <Menu
-              mode="inline"
-              openDrawerKeys={openDrawerKeys}
-              onOpenChange={onOpenChange}
-              style={{
-                width: 256,
-              }}
-              items={navData}
-            />
-          </Drawer>
-        </>
-      )}
-
-      <Link href="/">
-        <a className="logo">CHUN.VITA</a>
-      </Link>
-
-      <div className="navRight">
-        {userName ? (
-          <>
-            <Button type="text">{userName}</Button>
-            <Button type="text" onClick={() => handleLogOut()}>
-              Logout
-            </Button>
-          </>
-        ) : (
-          <Link href="/login" passHref>
-            <a className="loginBtn">Login</a>
-          </Link>
-        )}
-        <button
-          type="button"
-          className="cart-icon"
-          onClick={() => setShowCart(true)}
-        >
-          <AiOutlineShopping />
-          <span className="cart-item-qty">{totalQuantites}</span>
+        <button className="mobile-menu-btn" type="button">
+          <img
+            src={require("../../public/burger-bar.png").default.src}
+            onClick={showDrawer}
+          ></img>
         </button>
+        <Drawer
+          // title="Basic Drawer"
+          className="mobile-menu-drawer"
+          placement="left"
+          closable={false}
+          onClose={onCloseDrawer}
+          open={drawerOpen}
+          key="left"
+        >
+          <Menu
+            mode="inline"
+            openDrawerKeys={openDrawerKeys}
+            onOpenChange={onOpenChange}
+            style={{
+              width: 256,
+            }}
+            items={navData}
+          />
+          {userInfoBlock()}
+        </Drawer>
+        <Link href="/">
+          <h1>
+            <a className="logo">iciun.vita</a>
+          </h1>
+        </Link>
+
+        {userInfoBlock()}
       </div>
       {showCart && <Cart />}
-    </div>
+    </>
   );
 };
 

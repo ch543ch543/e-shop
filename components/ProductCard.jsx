@@ -3,20 +3,23 @@ import Link from "next/link";
 
 import { urlFor } from "../lib/client";
 
-const Product = ({ product: { image, name, slug, price, category, type } }) => {
+const ProductCard = ({
+  product: { image, name, slug, price, category, type },
+  productClass,
+}) => {
   return (
-    <div>
+    <>
       <Link href={`/shop/${category}/${type}/${slug.current}`}>
-        <div className="product-card">
-          <div className="product-card-img-block">
+        <div className={"product-card " + productClass}>
+          <div className={"product-card-img-block " + productClass}>
             <img src={urlFor(image && image[0])} className="product-image" />
           </div>
           <p className="product-name">{name.en}</p>
           <p className="product-price">${price}</p>
         </div>
       </Link>
-    </div>
+    </>
   );
 };
 
-export default Product;
+export default ProductCard;

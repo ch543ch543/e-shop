@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useStateContext } from "../context/StateContext";
-import Quantity from "./Quantity";
+import Quantity from "./cart/Quantity";
 import { Button } from "antd";
 import { urlFor } from "../lib/client";
 
@@ -49,7 +49,6 @@ const ProductDetail = ({ product }) => {
               (20)
             </p>
           </div> */}
-        <h4>Details: </h4>
         <p>{details}</p>
         <p className="price">${price}</p>
         <Quantity />

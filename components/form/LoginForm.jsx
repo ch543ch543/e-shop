@@ -4,7 +4,7 @@ import Link from "next/link";
 import axios from "axios";
 import jsCookie from "js-cookie";
 import { useRouter } from "next/router";
-import { useStateContext } from "../context/StateContext";
+import { useStateContext } from "../../context/StateContext";
 
 const LoginForm = () => {
   const router = useRouter();

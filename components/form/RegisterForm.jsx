@@ -3,7 +3,7 @@ import { Button, Form, Input } from "antd";
 import axios from "axios";
 import jsCookie from "js-cookie";
 import { useRouter } from "next/router";
-import { useStateContext } from "../context/StateContext";
+import { useStateContext } from "../../context/StateContext";
 
 const RegisterForm = () => {
   const router = useRouter();
