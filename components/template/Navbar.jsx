@@ -38,7 +38,7 @@ const Navbar = () => {
             <Button type="text" onClick={() => handleLogOut()}>
               <span>LOGOUT</span>
             </Button>
-            <a type="button" onClick={() => setShowCart(true)}>
+            <a onClick={() => setShowCart(true)}>
               <span>CART{`(`}</span>
               <span>{totalQuantites}</span>
               <span>{`)`}</span>
@@ -51,7 +51,7 @@ const Navbar = () => {
                 <span>LOGIN</span>
               </a>
             </Link>
-            <a type="button" onClick={() => setShowCart(true)}>
+            <a onClick={() => setShowCart(true)}>
               <span>CART{`(`}</span>
               <span>{totalQuantites}</span>
               <span>{`)`}</span>

@@ -16,6 +16,9 @@ html {
   width: 100%;
   overflow-x: hidden;
   overflow-y: hidden;
+  @media screen and (max-width: $pad) {
+    padding: 0;
+  }
 }
 body {
   padding: 0;

@@ -80,19 +80,28 @@
       overflow: hidden;
       cursor: pointer;
       border-radius: 30px;
+      -webkit-border-radius: 30px;
+      -moz-border-radius: 30px;
+      -khtml-border-radius: 30px;
       .product-image {
         display: block;
+        left: 50%;
+        top: 50%;
+        transform: translateY(-50%) translateX(-50%);
+        -webkit-transform: translateY(-50%) translateX(-50%);
+        -moz-transform: translateY(-50%) translateX(-50%);
+        -o-transform: translateY(-50%) translateX(-50%);
         background-color: #ebebeb;
         width: 100%;
-        max-width: 100%;
         height: auto;
-        transform: scale(1);
-        transition: transform 1s ease;
-      }
-      &:hover{
-        .product-image {
-          transform: scale(1.1);
-        } 
+        overflow: hidden;
+        transition: width .4s ease-in-out;
+        -webkit-transition: width .4s ease-in-out;
+        -moz-transition: width .4s ease-in-out;
+        -o-transition: width .4s ease-in-out;
+        &:hover{
+          width: 120%;
+        }
       }
     }
   }
