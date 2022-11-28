@@ -1,10 +1,10 @@
-@import '~antd/lib/style/themes/default.less';
-// @import '~antd/dist/antd.less';
+@import "~antd/lib/style/themes/default.less";
+@import "./_rwdMixin.less";
 
 @primary-color: #383b38; // change antd primary-color
-@secondary-color: #F5F3EA;
-@thirdColor: #BBABD6;
-@forthcolor: #738A60;
+@secondary-color: #f5f3ea;
+@thirdColor: #bbabd6;
+@forthcolor: #738a60;
 @primary-color-light: #bbbbbb;
 @primary-color-hover: @secondary-color;
 @primary-color-active: @secondary-color;
@@ -12,14 +12,46 @@
 @menu-item-color: #626662;
 @menu-highlight-color: #626662;
 
+* {
+  position: relative;
+}
+
+html {
+  padding: 16px;
+  background-color: white;
+  font-size: 16px;
+  line-height: 1.5;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  .rwd(pad;{
+    padding: 0;
+  });
+}
+body {
+  padding: 0;
+  margin: auto;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  box-sizing: border-box;
+  background-color: #f5f3ea;
+  height: fit-content;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
+::-webkit-scrollbar {
+  width: 0px;
+}
+
 .main-light-color {
   color: @secondary-color;
 }
 
 a.main-light-color {
   color: @secondary-color;
-    &:hover {
-      color: @primary-color;
+  &:hover {
+    color: @primary-color;
   }
 }
 
@@ -30,7 +62,7 @@ a.main-light-color {
 a.main-dark-color {
   color: @primary-color;
   transition: 1s;
-    &:hover {
-      text-decoration: underline;
+  &:hover {
+    text-decoration: underline;
   }
 }
